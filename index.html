@@ -1,0 +1,76 @@
+!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remember me, glowing star</title>
+    <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body class="pitch-black">
+    <audio id="audio-puerta" src="https://ia600601.us.archive.org/1/items/glow-stars-on-my-ceiling/glow%20stars%20on%20my%20ceiling.mp3" preload="auto" loop></audio>
+
+    <div id="scene-1" class="scene">
+        <div class="house-container" id="house-trigger">
+            <img src="goodoldtimes.png" class="house-img" alt="Casa">
+            <div class="door-portal" onclick="goToVoid()">
+                <img src="darling.png" class="door-img" alt="Puerta">
+            </div>
+        </div>
+    </div>
+
+    <div id="scene-2" class="scene hidden">
+        <div class="void-portals">
+
+            <a href="twinklestar.html" class="item portal-star">
+                <img src="glowingstardrawing.png" alt="Portal Estrella">
+            </a>
+
+            <a href="https://remembermeglowingstar.neocities.org/restinpeace" class="item portal-star rest-portal">
+                <img src="restinpeace2024.png" alt="Rest In Peace">
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        const house = document.getElementById('house-trigger');
+        const s1 = document.getElementById('scene-1');
+        const s2 = document.getElementById('scene-2');
+        const audio = document.getElementById('audio-puerta');
+
+        function goToVoid() {
+
+            audio.play().catch(error => {
+                console.warn("La reproducción de audio fue bloqueada o falló:", error);
+            });
+
+            house.classList.add('camera-zoom');
+
+            setTimeout(() => {
+                s1.classList.add('hidden');
+                s2.classList.remove('hidden');
+                s2.classList.add('fade-in');
+            }, 1200);
+        }
+
+        document.querySelectorAll('.portal-star').forEach(portal => {
+
+            portal.addEventListener('click', function(e) {
+
+                e.preventDefault();
+
+                audio.pause();
+                audio.currentTime = 0;
+
+                portal.classList.add('star-explode');
+
+                setTimeout(() => {
+                    window.location.href = portal.href;
+                }, 800);
+
+            });
+
+        });
+    </script>
+</body>
+</html>
