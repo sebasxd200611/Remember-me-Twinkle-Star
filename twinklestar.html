@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twinkle Star</title>
+    <link rel="stylesheet" href="style.css?v=8">
+    <style>
+        /* estilo */
+        body {
+            background-color: black;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+    .hidden { display: none !important; }
+
+    /* estética de la pantalla de bloqueo */
+    #lock-screen {
+        text-align: center;
+        transition: opacity 1s ease-in-out;
+        width: 100%;
+    }
+
+    .password-input {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #333;
+        color: white;
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 10px;
+        margin-bottom: 20px;
+        outline: none;
+        letter-spacing: 5px;
+        transition: border-color 0.4s;
+        max-width: 500px;
+        width: 80vw;
+    }
+
+    .password-input:focus { border-bottom: 1px solid #fff; }
+
+    #error-msg {
+        color: #ff4a4a;
+        font-size: 0.8rem;
+        opacity: 0;
+        transition: opacity 0.4s;
+        letter-spacing: 2px;
+    }
+
+    .password-hint {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        margin-top: 15px;
+        font-style: italic;
+    }
+
+    /* Fade in */
+    #secret-content {
+        opacity: 0;
+        transition: opacity 2s ease-in-out;
+        text-align: center;
+    }
+    
+    .fade-in { opacity: 1 !important; }
+</style>
+
+
+</head>
+<body>
+
+
+<audio id="disco-music" preload="auto" loop>
+    <source src="https://ia601806.us.archive.org/3/items/surf-curse-disco-128-kbps/Surf%20Curse%20-%20Disco%20-%20%28128%20Kbps%29.mp3" type="audio/mpeg">
+</audio>
+
+<div id="lock-screen">
+    <input type="password" id="pass-input" class="password-input" placeholder="enter the key... get it ... ? " onkeypress="handleEnter(event)" autocomplete="off" />
+    <div id="error-msg">The other one...</div>
+    <div class="password-hint">Our song, whose trend we still have not made. Yet.</div>
+</div>
+
+<div id="secret-content" class="hidden">
+    <h1>I lied...</h1>
+    <h1>It´s taking a bit longer than i thought, kei</h1>
+    <h1>Gosh ,  18/06/26 , you looked so fcking gorgeous today</h1>
+    <h1>Anyways. I hope i don´t take too long building this site</h1>
+</div>
+
+<script>
+    function checkPassword() {
+        const inputField = document.getElementById('pass-input');
+        const guess = inputField.value.toLowerCase();
+        const realPassword = "disco";
+
+        if (guess === realPassword) {
+
+            const lockScreen = document.getElementById('lock-screen');
+            const content = document.getElementById('secret-content');
+            const music = document.getElementById('disco-music');
+
+            lockScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+
+                music.play().catch(error => {
+                    console.warn("Audio playback failed:", error);
+                });
+
+                lockScreen.classList.add('hidden');
+
+                content.classList.remove('hidden');
+
+                setTimeout(() => {
+                    content.classList.add('fade-in');
+                }, 50);
+
+            }, 1000);
+            
+        } else {
+
+            const errorMsg = document.getElementById('error-msg');
+
+            errorMsg.style.opacity = '1';
+
+            setTimeout(() => {
+                errorMsg.style.opacity = '0';
+            }, 2000);
+
+            inputField.value = '';
+        }
+    }
+
+    function handleEnter(e) {
+        if (e.key === 'Enter') {
+            checkPassword();
+        }
+    }
+</script>
+
+
+</body>
+</html>
