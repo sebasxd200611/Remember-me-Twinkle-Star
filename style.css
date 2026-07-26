@@ -1,0 +1,227 @@
+/* Estilo Base*/
+body {
+    background-color: black;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scene {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+/* Configuración de la Casa */
+.house-container {
+    position: relative;
+    width: min(90vw, 1000px);
+    max-width: 1000px;
+    transform-origin: 49% 65%;
+    transition: transform 1.8s ease-in-out, filter 0.7s ease-in;
+}
+
+.camera-zoom {
+    transform: scale(15);
+    filter: brightness(0);
+}
+
+.house-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* La Puerta */
+.door-portal {
+    position: absolute;
+    bottom: 25%;
+    left: 46%;
+    cursor: pointer;
+}
+
+.door-img {
+    width: 50px;
+    filter: brightness(0.4)
+            drop-shadow(0 0 5px black)
+            drop-shadow(2px 2px 0px black);
+    transition: transform 0.3s;
+}
+
+.door-portal:hover .door-img {
+    transform: scale(1.2);
+    filter: brightness(0.6);
+}
+
+/* Ajustes para teléfonos */
+@media (max-width: 768px) {
+
+    .door-portal {
+        left: 46%;
+        bottom: 24%;
+    }
+
+    .door-img {
+        width: 24px;
+    }
+
+}
+
+/* Portales */
+.void-portals {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.item img {
+    width: 450px;
+    filter: brightness(0.7);
+    transition: 0.5s;
+    mix-blend-mode: screen;
+}
+
+.item:hover img {
+    transform: scale(1.1);
+    filter: brightness(1);
+}
+
+/* Portal RIP más oscuro */
+.rest-portal img {
+    filter: brightness(0.3) grayscale(0.4);
+}
+
+.rest-portal:hover img {
+    filter: brightness(0.5) grayscale(0.2);
+}
+
+/* Explosión */
+
+.star-explode {
+    position: relative;
+}
+
+.star-explode img {
+    animation: starExplode 0.8s forwards !important;
+}
+
+.star-explode::before,
+.star-explode::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: white;
+    pointer-events: none;
+    animation: particleBurst 0.8s forwards;
+}
+
+.star-explode::before {
+    box-shadow:
+        -80px -40px 0 white,
+        70px -30px 0 white,
+        -60px 60px 0 white,
+        90px 50px 0 white,
+        0 -90px 0 white,
+        0 90px 0 white;
+}
+
+.star-explode::after {
+    box-shadow:
+        -110px 0 0 white,
+        110px 0 0 white,
+        -70px -80px 0 white,
+        70px -80px 0 white,
+        -70px 80px 0 white,
+        70px 80px 0 white;
+}
+
+@keyframes starExplode {
+    0% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.4);
+        filter:
+            brightness(4)
+            drop-shadow(0 0 30px white);
+    }
+
+    50% {
+        transform: scale(0.85);
+    }
+
+    100% {
+        transform: scale(1);
+        filter:
+            brightness(1.2)
+            drop-shadow(0 0 10px white);
+    }
+}
+
+@keyframes particleBurst {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+
+    20% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.8);
+        opacity: 0;
+    }
+}
+
+/* Hand-drawn animation */
+
+.portal-star img {
+    animation:
+        starWobble 4s steps(6) infinite,
+        starFloat 7s ease-in-out infinite;
+
+    transform-origin: center center;
+}
+
+@keyframes starWobble {
+    0%   { transform: rotate(-1deg); }
+    25%  { transform: rotate(1deg); }
+    50%  { transform: rotate(-2deg); }
+    75%  { transform: rotate(1deg); }
+    100% { transform: rotate(-1deg); }
+}
+
+@keyframes starFloat {
+    0%, 100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -4px;
+    }
+}
